@@ -1,1 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TOKÍ 一朱鷺一</title>
 
+<meta name="description" content="TOKÍ 一朱鷺一 - Japanese indie game studio crafting immersive games.">
+
+<meta property="og:title" content="TOKÍ 一朱鷺一">
+<meta property="og:description" content="Japanese indie game studio">
+<meta property="og:image" content="https://your-site.com/og-image.png">
+<meta property="og:type" content="website">
+
+<style>
+body {
+  margin: 0;
+  font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+  color: #f5f5f5;
+  text-align: center;
+  background: linear-gradient(#0f0f10, #1c1c1e);
+  visibility: hidden;
+}
+
+.lang { display: none; }
+.lang.active { display: inline; }
+
+.lang-switch {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.lang-switch button {
+  margin-left: 5px;
+  padding: 6px 12px;
+  background: transparent;
+  color: #F3A696;
+  border: 1px solid #F3A696;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.lang-switch button:hover {
+  background: #F3A696;
+  color: #0f0f10;
+}
+
+.hero-title {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: fadeUp 1s ease forwards;
+}
+
+.hero-logo {
+  opacity: 0;
+  transform: scale(0.95);
+  animation: fadeScale 1s ease forwards;
+  animation-delay: 0.5s;
+}
+
+.hero-sub {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeScale {
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+h1 {
+  font-size: 56px;
+  margin-top: 120px;
+  color: #F3A696;
+  letter-spacing: 8px;
+  text-shadow: 0 0 20px rgba(243,166,150,0.6);
+  animation: glow 3s ease-in-out infinite alternate; /* ⑥ 追加 */
+}
+
+@keyframes glow {
+  from { text-shadow: 0 0 10px rgba(243,166,150,0.4); }
+  to   { text-shadow: 0 0 30px rgba(243,166,150,0.9); }
+}
+
+.logo {
+  width: 180px;
+  max-width: 40%;
+  margin: 20px 0;
+  filter: drop-shadow(0 0 10px rgba(243,166,150,0.3));
+}
+
+.section {
+  margin: 120px auto;
+  max-width: 800px;
+  padding: 20px;
+}
+
+h2 {
+  border-bottom: 1px solid #F3A696;
+  display: inline-block;
+  padding-bottom: 6px;
+  margin-bottom: 30px;
+  color: #ffd6cc;
+}
+
+p {
+  line-height: 1.8;
+  color: #ddd;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+li {
+  margin: 15px auto;
+  max-width: 400px;
+  background: rgba(255,255,255,0.04);
+  padding: 15px;
+  border-radius: 10px;
+  border-left: 3px solid #F3A696;
+  transition: 0.3s;
+}
+
+li:hover {
+  background: rgba(243,166,150,0.15);
+  transform: translateX(6px);
+}
+
+.works {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  flex-wrap: wrap;
+}
+
+.works a {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+}
+
+.game {
+  width: 250px;
+  background: rgba(255,255,255,0.05);
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid rgba(243,166,150,0.3);
+  transition: 0.3s;
+  overflow: hidden;
+
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.game.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.game:hover {
+  transform: translateY(-8px) scale(1.03);
+  box-shadow: 0 0 20px rgba(243,166,150,0.4);
+}
+
+.game:active {
+  transform: scale(0.97);
+}
+
+.game img {
+  width: 100%;
+  border-radius: 6px;
+  display: block;
+}
+
+.view-all {
+  display: inline-block;
+  margin: 40px auto;
+  padding: 14px 28px;
+  font-size: 20px;
+  font-weight: bold;
+  color: #F3A696;
+  border: 1px solid #F3A696;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: 0.3s;
+  max-width: 260px;
+}
+
+.view-all:hover {
+  background: #F3A696;
+  color: #0f0f10;
+  box-shadow: 0 0 20px rgba(243,166,150,0.6);
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: 0.8s ease;
+}
+
+.fade-in.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (max-width: 768px) {
+  h1 { font-size: 36px; }
+  .section { margin: 60px 20px; }
+  .game { width: 90%; }
+  .view-all { width: 80%; font-size: 18px; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="lang-switch">
+  <button onclick="setLang('en')">EN</button>
+  <button onclick="setLang('ja')">JP</button>
+</div>
+<h1 class="hero-title">TOKÍ 一朱鷺一</h1>
+
+<img src="TOKÍ (transparent background).png" class="logo hero-logo" alt="TOKÍ Logo">
+
+<p class="hero-sub">
+  <span class="lang en active">INDIE GAME STUDIO / JAPAN</span>
+  <span class="lang ja">日本のインディーゲーム開発チーム</span>
+</p>
+
+<!-- About -->
+<div class="section fade-in">
+<h2>
+<span class="lang en active">About</span>
+<span class="lang ja">概要</span>
+</h2>
+
+<p>
+<span class="lang en">Hi, We're " TOKÍ 一朱鷺一 ".</span>
+<span class="lang ja">私たちは「TOKÍ 一朱鷺一」です。</span>
+</p>
+
+<p>
+<span class="lang en">A small indie studio from Japan.</span>
+<span class="lang ja">日本の小さなインディーゲーム開発チームです。</span>
+</p>
+
+<p>
+<span class="lang en">We craft games with a passion for tight gameplay and immersive atmosphere.</span>
+<span class="lang ja">ゲーム性と没入感を大切にゲームをつくっています。</span>
+</p>
+
+<p>
+<span class="lang en">Small team. Big drive. Always learning, always leveling up.</span>
+<span class="lang ja">小さなチームですが、大きな熱意をもっています。そして、常に学び、成長し続けています。</span>
+</p>
+
+<p>
+<span class="lang en">Thanks for stopping by!</span>
+<span class="lang ja">このページをみていただき、ありがとうございます！</span>
+</p>
+</div>
+
+<div class="section fade-in">
+<h2>
+<span class="lang en active">Members</span>
+<span class="lang ja">メンバー</span>
+</h2>
+
+<ul>
+<li>Kawano T.</li>
+<li>Y. I.</li>
+<li>H. I.</li>
+<li>H. T.</li>
+</ul>
+</div>
+
+<div class="section fade-in">
+<h2>
+<span class="lang en active">Works</span>
+<span class="lang ja">作品</span>
+</h2>
+
+<div class="works">
+<a href="https://toki-japan.itch.io/tiles-game" target="_blank">
+<div class="game">
+<img src="Cover_image_Copilot.png" loading="lazy"> <!-- ③ 追加 -->
+<h3>Tiles Game</h3>
+</div>
+</a>
+</div>
+
+<a href="https://toki-japan.itch.io" target="_blank" class="view-all">
+<span class="lang en active">View All Games</span>
+<span class="lang ja">すべてのゲームを見る</span>
+</a>
+
+</div>
+
+<script>
+function setLang(lang) {
+  document.querySelectorAll('.lang').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.' + lang).forEach(el => el.classList.add('active'));
+  localStorage.setItem('lang', lang);
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const saved = localStorage.getItem('lang') || 'en';
+  setLang(saved);
+  document.body.style.visibility = 'visible';
+});
+
+const sections = document.querySelectorAll('.fade-in');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('show');
+
+      const cards = entry.target.querySelectorAll('.game');
+      cards.forEach((card, i) => {
+        setTimeout(() => card.classList.add('show'), i * 200);
+      });
+    }
+  });
+});
+
+sections.forEach(sec => observer.observe(sec));
+</script>
+
+</body>
+</html>
